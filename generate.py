@@ -28,7 +28,7 @@ def generate(model, seed_characters, temperature=1, *args):
     index_to_char = args[1]
 
     char_li = [char_to_index[character] for character in seed_characters]       # Get index
-    hidden = model.init_hidden(batch_size)
+    init_hidden = model.init_hidden(batch_size)
     length = 100
     
     # init
@@ -46,7 +46,7 @@ def generate(model, seed_characters, temperature=1, *args):
         
         i += len(char_li)
         
-        output, hidden = model(X[:,:i+1,:], hidden)
+        output, hidden = model(X[:,:i+1,:], init_hidden)
       
         # pred_ind = torch.argmax(output, dim=-1)[0][-1].item()
         # https://stackoverflow.com/questions/42593231/is-numpy-random-choice-with-replacement-equivalent-to-multinomial-sampling-for-a
